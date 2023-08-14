@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_view"
+        tools:layout="@layout/activity_home">
+        <action
+            android:id="@+id/action_nav_view_to_nav_home"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_subject"
+            app:destination="@id/nav_subject" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_slideshow"
+            app:destination="@id/nav_slideshow" />
+        <action
+            android:id="@+id/action_nav_view_to_nav_slideshow2"
+            app:destination="@id/nav_slideshow" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.e_learn.ui.login.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_subject"
+        android:name="com.example.e_learn.ui.login.ui.Subjects"
+        android:label="Subjects"
+        tools:layout="@layout/fragment_subjects">
+        <action
+            android:id="@+id/action_nav_subject_to_nav_mathTopics"
+            app:destination="@id/nav_mathTopics" />
+        <action
+            android:id="@+id/action_nav_subject_to_nav_socialTopics"
+            app:destination="@id/nav_socialTopics" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_mathTopics"
+        android:name="com.example.e_learn.ui.login.ui.mathTopics.MathsTopicsFragment"
+        android:layout="@layout/fragment_maths_topics">
+        <action
+            android:id="@+id/action_nav_mathTopics_to_nav_view"
+            app:destination="@id/nav_view" />
+        <action
+            android:id="@+id/action_nav_mathTopics_to_nav_setsFragment"
+            app:destination="@id/nav_setsFragment" />
+        <action
+            android:id="@+id/action_nav_mathTopics_to_nav_realNumbers"
+            app:destination="@id/nav_realNumbers" />
+        <action
+            android:id="@+id/action_nav_mathTopics_to_nav_algebra"
+            app:destination="@id/nav_algebra" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_realNumbers"
+        android:name="com.example.e_learn.ui.login.ui.mathTopics.NumbersFragment"
+        android:layout="@layout/fragment_numbers"/>
+    <fragment
+        android:id="@+id/nav_algebra"
+        android:name="com.example.e_learn.ui.login.ui.mathTopics.AlgebraFragment"
+        android:layout="@layout/fragment_algebra"/>
+    <fragment
+        android:id="@+id/nav_socialTopics"
+        android:name="com.example.e_learn.ui.login.ui.socialStudies.SocialStudiesFragment"
+        android:layout="@layout/fragment_subjects"/>
+    <fragment
+        android:id="@+id/nav_setsFragment"
+        android:name="com.example.e_learn.ui.login.ui.mathTopics.SetsFragment"
+        android:layout="@layout/fragment_sets"/>
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.example.e_learn.ui.login.ui.PostQuestion.PostQuestionFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.example.e_learn.ui.login.ui.community.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/prof_host"
+        android:label="Profile"
+        android:name="com.example.e_learn.ui.login.ui.profile.HostFragment"
+        tools:layout="@layout/fragment_host">
+        <action
+            android:id="@+id/action_prof_host_to_nav_profile"
+            app:destination="@id/nav_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.e_learn.ui.login.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
+</navigation>

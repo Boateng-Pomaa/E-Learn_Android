@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">E-Learn</string>
+    <string name="welcome">Welcome!</string>
+    <string name="e_learn_now">E-Learn Now!</string>
+    <string name="or">OR</string>
+    <string name="login2">login</string>
+    <string name="continue_to_learning">Continue to Learning</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="don_t_have_an_account_signup">Don\'t Have an Account? SignUp</string>
+    <string name="login_to_continue">Login to Continue</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">E-Learn</string>
+    <string name="nav_header_subtitle">You\'ve Got This</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Post a Question</string>
+    <string name="menu_slideshow">Community</string>
+    <string name="tit_logout">Logout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username1">Username</string>
+    <string name="password1">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="signup">SignUp</string>
+    <string name="already_have_an_account_login">Already Have An Account? Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="subjects">Subjects</string>
+    <string name="year_one">Year One</string>
+    <string name="year_two">Year Two</string>
+    <string name="year_three">Year Three</string>
+    <string name="ready_to_take_a_quiz">Ready to take a Quiz</string>
+    <string name="description">Description</string>
+    <string name="post">POST</string>
+    <string name="eg_how_to_find_the_product_of_two_numbers">eg. How to find the product of two numbers</string>
+    <string name="title">Title</string>
+    <string name="elaborate_your_question">Elaborate your question</string>
+    <string name="ask_your_question">Ask Your Question</string>
+    <string name="email">Email</string>
+    <string name="failed_to_load_posts_n_please_check_your_internet_connection">Failed to load posts \n Please check your internet connection</string>
+    <string name="post_question">Post Question</string>
+    <string name="profile">Profile</string>
+    <string name="notification">Notification</string>
+
+</resources>
