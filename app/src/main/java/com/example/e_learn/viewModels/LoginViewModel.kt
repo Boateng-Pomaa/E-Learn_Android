@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.e_learn.data.model.LoginRequest
 import com.example.e_learn.data.model.LoginResponse
+import com.example.e_learn.data.model.User
 import com.example.e_learn.data.repository.LoginRepository
 import com.example.e_learn.utils.Resource
 import com.google.gson.Gson
@@ -18,8 +19,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel(private val loginRepository: LoginRepository ,application: Application) : AndroidViewModel(application) {
-    private val _loginResult = MutableLiveData< Resource<LoginResponse>>()
-    val loginResult: LiveData<Resource<LoginResponse>> get() = _loginResult
+    private val _loginResult = MutableLiveData< Resource<User>>()
+    val loginResult: LiveData<Resource<User>> get() = _loginResult
     fun doLogin(username:String,password:String) {
         _loginResult.value = Resource.loading()
         viewModelScope.launch {
@@ -28,8 +29,8 @@ class LoginViewModel(private val loginRepository: LoginRepository ,application: 
                 loginRepository.doLogin(loginData).enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                         if(response.isSuccessful){
-                            val user = response.body()?:throw IllegalArgumentException("not nullable")
-                            saveResponse(user)
+                            val user = response.body()?.user!!
+                            Log.i("RESPONSE",user.toString())
                             _loginResult.value = Resource.success(user)
                         }
                         else{
@@ -47,13 +48,7 @@ class LoginViewModel(private val loginRepository: LoginRepository ,application: 
             }
         }
     }
-    private fun saveResponse(data: LoginResponse) {
-        val json = Gson().toJson(data)
-        val sharedPreferences = getApplication<Application>().getSharedPreferences("user_details", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("user_data", json)
-        editor.apply()
-    }
+
 
     override fun onCleared() {
         super.onCleared()

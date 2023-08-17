@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.e_learn.data.model.User
 import com.example.e_learn.data.model.UserResponse
 import com.example.e_learn.data.repository.UserRepository
 import com.example.e_learn.utils.Resource
@@ -15,8 +16,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileViewModel(private val userRepo:UserRepository) : ViewModel() {
-    private val _profile = MutableLiveData<Resource<UserResponse>>()
-    val profile: LiveData<Resource<UserResponse>> get()  = _profile
+    private val _profile = MutableLiveData<Resource<User>>()
+    val profile: LiveData<Resource<User>> get()  = _profile
 
     fun getUser(userId: String){
         _profile.value = Resource.loading()
@@ -29,7 +30,7 @@ class ProfileViewModel(private val userRepo:UserRepository) : ViewModel() {
                         response: Response<UserResponse>
                     ) {
                         if (response.isSuccessful) {
-                            val data = response.body()!!
+                            val data = response.body()?.user!!
                             _profile.value = Resource.success(data)
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: response.message()

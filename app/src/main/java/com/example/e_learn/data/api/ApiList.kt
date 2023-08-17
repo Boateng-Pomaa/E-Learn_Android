@@ -13,12 +13,12 @@ interface ApiList {
     fun doLogin(@Body loginReq:LoginRequest): Call<LoginResponse>
 
     //TODO : Get Student
-    @GET("/profile/:id")
+    @GET("/profile/{id}")
     @Headers("Accept:application/json","Content-Type:application/json")
-     fun getUser(@Path("_id")userId:String): Call<UserResponse>
+     fun getUser(@Path("id")userId:String): Call<UserResponse>
 
      //user Questions
-     @GET("/yourQuestions/:id")
+     @GET("/yourQuestions/{id}")
      @Headers("Accept:application/json","Content-Type:application/json")
      fun userQuestions(@Path("id")userId:String):Call<UserQuestionResponse>
 
@@ -50,7 +50,7 @@ interface ApiList {
     companion object {
         private const val TAG = "--ApiService  192.168.0.101"
 
-        private const val BASE_URL = "http://192.168.0.100:5000"
+        private const val BASE_URL = "http://192.168.0.101:5000"
 
         fun create(): ApiList {
             val retrofit = Retrofit.Builder()

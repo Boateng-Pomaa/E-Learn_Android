@@ -60,14 +60,11 @@ class QuestionsFragment : Fragment() {
                 Toast.makeText(requireContext(),"Failed to Load Feed "+" Pull to Refresh", Toast.LENGTH_LONG).show()
             }
         }
-        val userDetails = SharedPreferenceUtil.getUserData(requireContext())
-        val userId = userDetails?.id
-        if (userId != null) {
-            Log.i("RETRIEVED", userId)
-        }
-        if (userId != null) {
-            viewModel.getUserQuestions(userId)
-        }
+        val sharePref = SharedPreferenceUtil(requireContext())
+        val userId = sharePref.retrieveData("userId").toString()
+        Log.d("RETRIEVED",userId)
+
+        viewModel.getUserQuestions(userId)
         return root
     }
 

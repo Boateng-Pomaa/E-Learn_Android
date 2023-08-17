@@ -1,6 +1,7 @@
 package com.example.e_learn.ui.login.ui.PostQuestion
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,28 +54,32 @@ class PostQuestionFragment : Fragment() {
                 Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
             }
         }
-        val userDetails = SharedPreferenceUtil.getUserData(requireContext())
-        val userId = userDetails.id
+       val sharePref = SharedPreferenceUtil(requireContext())
+        val userId = sharePref.retrieveData("userId").toString()
+       Log.d("RETRIEVED",userId)
         binding.button2.setOnClickListener {
-                post(userId)
-
-
-             binding.editTextTextMultiLine2.text.clear()
-             binding.editTextTextMultiLine.text.clear()
-        }
-
-
-        return root
-    }
-
-    private fun post(userId:String){
+               // post(userId)
             val title = binding.editTextTextMultiLine2.text.toString().trim()
             val question = binding.editTextTextMultiLine.text.toString().trim()
             val json = JSONObject()
             json.put("title", title)
             json.put("question", question)
             postViewModel.postQuestion(userId,title, question)
+             binding.editTextTextMultiLine2.text.clear()
+             binding.editTextTextMultiLine.text.clear()
+        }
+
+        return root
     }
+
+//    private fun post(userId:String){
+//            val title = binding.editTextTextMultiLine2.text.toString().trim()
+//            val question = binding.editTextTextMultiLine.text.toString().trim()
+//            val json = JSONObject()
+//            json.put("title", title)
+//            json.put("question", question)
+//            postViewModel.postQuestion(userId,title, question)
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -44,8 +44,8 @@ class ProfileFragment : Fragment() {
 //                binding.loading3.visibility = View.GONE
                 val profile = Resource.data
                 if (profile != null) {
-                    binding.usernameText.text = profile.data.username
-                    binding.emailText.text = profile.data.email
+                    binding.usernameText.text = profile.username
+                    binding.emailText.text = profile.email
                 } else if (Resource.isError()) {
 //                binding.loading3.visibility = View.GONE
 //                binding.imageView3.visibility = View.VISIBLE
@@ -55,14 +55,11 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-        val userDetails = SharedPreferenceUtil.getUserData(requireContext())
-        val userId = userDetails?.id
-        if (userId != null) {
-            Log.i("RETRIEVED", userId)
-        }
-        if (userId != null) {
-            viewModel.getUser(userId)
-        }
+        val sharePref = SharedPreferenceUtil(requireContext())
+        val userId = sharePref.retrieveData("userId").toString()
+        Log.d("RETRIEVED",userId)
+
+        viewModel.getUser(userId)
         return root
     }
     override fun onDestroyView() {
