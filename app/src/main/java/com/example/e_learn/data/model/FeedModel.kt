@@ -1,8 +1,14 @@
 package com.example.e_learn.data.model
 
-data class FeedModel(//var _id:String?,
-    var username:String,
-    var title:String?,
-    var question:String?,
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class FeedModel(
+
+    @SerializedName("_id") var _id:String,
+    @SerializedName("username") var username:String,
+    @SerializedName("title")  var title:String,
+    @SerializedName("question") var question:String,
 //    var createdAt:String?
-)
+) : Parcelable

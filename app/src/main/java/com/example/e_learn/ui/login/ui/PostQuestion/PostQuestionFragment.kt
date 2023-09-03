@@ -35,10 +35,12 @@ class PostQuestionFragment : Fragment() {
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo)
+        val ansRepo = AnswerRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
         postViewModel = ViewModelProvider(this,viewModelFactory)[GalleryViewModel::class.java]
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val sharePref = SharedPreferenceUtil(requireContext())
 
         postViewModel.postResult.observe(this){
             Resource ->
@@ -47,18 +49,18 @@ class PostQuestionFragment : Fragment() {
                 Toast.makeText(requireContext(),"Posting Question", Toast.LENGTH_LONG).show()
             }else if (Resource.isSuccess()) {
                 binding.loading2.visibility = View.GONE
-//                val res = Resource.data
+                val res = Resource.data?._id.toString()
+                sharePref.saveData("questionId",res)
                 Toast.makeText(requireContext(),"Question Posted", Toast.LENGTH_LONG).show()
             }else if (Resource.isError()){
                 binding.loading2.visibility = View.GONE
                 Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
             }
         }
-       val sharePref = SharedPreferenceUtil(requireContext())
+
         val userId = sharePref.retrieveData("userId").toString()
        Log.d("RETRIEVED",userId)
         binding.button2.setOnClickListener {
-               // post(userId)
             val title = binding.editTextTextMultiLine2.text.toString().trim()
             val question = binding.editTextTextMultiLine.text.toString().trim()
             val json = JSONObject()
@@ -68,19 +70,8 @@ class PostQuestionFragment : Fragment() {
              binding.editTextTextMultiLine2.text.clear()
              binding.editTextTextMultiLine.text.clear()
         }
-
         return root
     }
-
-//    private fun post(userId:String){
-//            val title = binding.editTextTextMultiLine2.text.toString().trim()
-//            val question = binding.editTextTextMultiLine.text.toString().trim()
-//            val json = JSONObject()
-//            json.put("title", title)
-//            json.put("question", question)
-//            postViewModel.postQuestion(userId,title, question)
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

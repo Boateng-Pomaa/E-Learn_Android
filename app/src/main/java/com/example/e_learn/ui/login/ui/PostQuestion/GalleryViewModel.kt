@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.e_learn.data.model.FeedModel
 import com.example.e_learn.data.model.PostRequest
 import com.example.e_learn.data.model.PostResponse
 import com.example.e_learn.data.repository.PostRepository
@@ -15,8 +16,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class GalleryViewModel (private val postRepo:PostRepository) : ViewModel() {
-    private val _postResult = MutableLiveData<Resource<PostResponse>>()
-    val postResult: LiveData<Resource<PostResponse>> = _postResult
+    private val _postResult = MutableLiveData<Resource<FeedModel>>()
+    val postResult: LiveData<Resource<FeedModel>> = _postResult
 
     fun postQuestion(userId: String, title:String, question:String){
         _postResult.value = Resource.loading()
@@ -29,7 +30,7 @@ class GalleryViewModel (private val postRepo:PostRepository) : ViewModel() {
                         response: Response<PostResponse>
                     ) {
                         if (response.isSuccessful) {
-                            val data:PostResponse = response.body() ?: throw IllegalStateException("Post cannot be null")
+                            val data = response.body()?.posts!!
                             _postResult.value = Resource.success(data)
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: response.message()

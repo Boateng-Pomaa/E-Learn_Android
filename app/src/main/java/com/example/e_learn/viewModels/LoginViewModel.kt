@@ -1,7 +1,6 @@
 package com.example.e_learn.viewModels
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -12,7 +11,6 @@ import com.example.e_learn.data.model.LoginResponse
 import com.example.e_learn.data.model.User
 import com.example.e_learn.data.repository.LoginRepository
 import com.example.e_learn.utils.Resource
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback

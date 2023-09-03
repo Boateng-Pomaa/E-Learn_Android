@@ -22,10 +22,21 @@ interface ApiList {
      @Headers("Accept:application/json","Content-Type:application/json")
      fun userQuestions(@Path("id")userId:String):Call<UserQuestionResponse>
 
-//     //adding answers
-//     @POST("/answer")
-//     fun answer(@Path("id")userId:String,@Body ansReq:AnswerRequest):Call<answerResponse>
+     //adding answers
+     @POST("/answer/{id}")
+     fun answer(@Path("id")userId:String,
+                @Query("questionId") questionId:String,
+                @Body ansReq:AnswerRequest):Call<AnswerResponse>
 
+
+    @GET("/viewAnswers/{questionId}")
+    @Headers("Accept:application/json","Content-Type:application/json")
+    fun getAnswer(@Path("questionId")questionId: String):Call<AnswerResponse>
+
+//     //voteCount
+//     @POST("/upvote")
+//     fun updateVote(@Query("answerId") answerId:String,@Query("isUpvote") isUpvote:Boolean)
+     
 //     //user Answers
 //     @GET("/yourAnswers")
 //     @Headers("Accept:application/json","Content-Type:application/json")
@@ -48,7 +59,7 @@ interface ApiList {
     fun postQuestion(@Path("username")username:String,@Body postReq:PostRequest):Call<PostResponse>
 
     companion object {
-        private const val TAG = "--ApiService  192.168.0.101"
+        private const val TAG = "--ApiService  192.168.0.101,  10.225.0.245"
 
         private const val BASE_URL = "http://192.168.0.101:5000"
 

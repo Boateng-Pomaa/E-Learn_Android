@@ -85,7 +85,11 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.e_learn.ui.login.ui.community.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow" >
+        <action
+            android:id="@+id/action_nav_slideshow_to_answerHost"
+            app:destination="@id/answerHost" />
+    </fragment>
     <fragment
         android:id="@+id/prof_host"
         android:label="Profile"
@@ -100,4 +104,38 @@
         android:name="com.example.e_learn.ui.login.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
+
+    <fragment
+        android:id="@+id/nav_answer"
+        android:name="com.example.e_learn.ui.login.ui.answer.AnswerFragment"
+        tools:layout="@layout/fragment_answer">
+        <argument
+            android:name="all_data"
+            app:argType="com.example.e_learn.data.model.FeedModel" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_questionFull"
+        android:name="com.example.e_learn.ui.login.ui.answer.QuestionScrollingFragment"
+        android:label="Question"
+        tools:layout="@layout/fragment_question_scrolling">
+        <argument
+            android:name="all_data"
+            app:argType="com.example.e_learn.data.model.FeedModel" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/answerHost"
+        android:name="com.example.e_learn.ui.login.ui.answer.AnswerHostFragment"
+        tools:layout="@layout/fragment_answer_host">
+        <argument
+            android:name="question_Details"
+            app:argType="com.example.e_learn.data.model.FeedModel" />
+        <action
+            android:id="@+id/action_answerHost_to_nav_answer"
+            app:destination="@id/nav_answer" />
+        <action
+            android:id="@+id/action_answerHost_to_nav_questionFull"
+            app:destination="@id/nav_questionFull" />
+    </fragment>
 </navigation>

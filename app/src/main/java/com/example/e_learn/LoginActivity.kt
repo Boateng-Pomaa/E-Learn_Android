@@ -44,7 +44,8 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo)
+        val ansRepo = AnswerRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
         loginViewModel = ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
 //        val userDetails = SharedPreferenceUtil.getUserData(this)
 //        val userId = userDetails.id
@@ -54,21 +55,14 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
                 binding.loading.visibility = VISIBLE
             }
             else if (Resource.isSuccess()) {
-               val userData = Resource.data?._id.toString()
+               val userId = Resource.data?._id.toString()
+                val userName = Resource.data?.username.toString()
                 Log.d("RESPONSE", Resource.data?.username.toString())
                 binding.loading.visibility = GONE
                 sharePref = SharedPreferenceUtil(this)
-                sharePref.saveData("userId",userData)
-
-               Log.d("SAVED",userData)
-//                if (userData != null) {
-//                    Log.i("USERID", userData.username)
-//                    sharedPreferencesUtil.saveDate("username", userData.username)
-//                }
-//                if (userData != null) {
-//                    sharedPreferencesUtil.saveDate("token", userData.token)
-//                }
-
+                sharePref.saveData("userId",userId)
+                sharePref.saveData("userName",userName)
+               Log.d("SAVED",userId)
                 val o = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(o)
                 finish()

@@ -31,7 +31,8 @@ class ProfileFragment : Fragment() {
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo)
+        val ansRepo = AnswerRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root

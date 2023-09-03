@@ -1,25 +1,39 @@
 package com.example.e_learn.ui.login.ui.community
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.e_learn.R
 import com.example.e_learn.data.api.ApiList
+import com.example.e_learn.data.model.FeedModel
 import com.example.e_learn.data.repository.*
 import com.example.e_learn.databinding.FragmentSlideshowBinding
 import com.example.e_learn.viewModels.BaseViewModelFactory
 import org.json.JSONObject
 
-class SlideshowFragment: Fragment() {
+class SlideshowFragment: Fragment(),FeedAdapter.OnItemClickListener {
     private lateinit var feedViewModel:SlideshowViewModel
     private var _binding: FragmentSlideshowBinding? = null
     private lateinit var viewModelFactory: BaseViewModelFactory
     private var apilist =  ApiList.create()
     private val binding get() = _binding!!
+
+
+    //sset the adapter outside observer
+    override fun onItemClick(feed:FeedModel) {
+        Log.d("FEEEED", feed.toString())
+        val bundle = Bundle().apply {
+            putParcelable("question_Details",feed)
+        }
+        findNavController().navigate(R.id.action_nav_slideshow_to_answerHost, bundle)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,17 +46,19 @@ class SlideshowFragment: Fragment() {
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo)
+        val ansRepo = AnswerRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
          feedViewModel = ViewModelProvider(this,viewModelFactory)[SlideshowViewModel::class.java]
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         binding.imageButton.setOnClickListener{
             search()
+            //adapter.notifyDataSetChanged()
         }
-        val adapter = FeedAdapter()
+
         binding.feedList.layoutManager = LinearLayoutManager(requireContext())
-        binding.feedList.adapter = adapter
+
 
         feedViewModel.feeds.observe(this) { Resource ->
             if(Resource.isLoading()){
@@ -53,6 +69,8 @@ class SlideshowFragment: Fragment() {
                 binding.loading3.visibility = View.GONE
                 val posts = Resource.data
                 if (posts != null) {
+                    val adapter = FeedAdapter(posts.feeds,this)
+                    binding.feedList.adapter = adapter
                     adapter.setData(posts)
                     adapter.notifyDataSetChanged()
                 }
