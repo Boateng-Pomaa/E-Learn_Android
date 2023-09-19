@@ -43,6 +43,7 @@ class MathsTopicsFragment : Fragment() ,MathsTopicsAdapter.onItemSelectedListene
         val rootView = binding.root
 
         (activity as HomeActivity).setAppBarTitle("Core Mathematics")
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
 
         val yearTwoTopics = MathTopics2.getData().map { it.topic }
         val adapter2 = Spinner2Adapter(requireContext(),yearTwoTopics)

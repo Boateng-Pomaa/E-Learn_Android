@@ -34,6 +34,9 @@ class SetsFragment : Fragment(), OnPageScrollListener {
             .defaultPage(0)
             .load()
 
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
+        (activity as HomeActivity).updateFloatingActionButtonActions()
+
         return binding.root
 
     }
@@ -42,75 +45,13 @@ class SetsFragment : Fragment(), OnPageScrollListener {
 
         (activity as HomeActivity).setAppBarTitle("Sets And Operations on Sets")
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (popupWindow?.isShowing == true) {
-                // If the popup window is showing, dismiss it
-                popupWindow?.dismiss()
-            } else {
-                // If the popup window is not showing, handle the back button press as usual
-                isEnabled = false
-                requireActivity().onBackPressed()
-            }
-        }
-
     }
-
 
     override fun onPageScrolled(page: Int, positionOffset: Float) {
-        val currentPage = page + 1
-        val totalPages = binding.pdfView.pageCount
+//        val currentPage = page + 1
+//        val totalPages = binding.pdfView.pageCount
 
-        if (currentPage == totalPages) {
-            showPopupButton()
-        } else {
-            hidePopupButton()
-        }
     }
-
-
-    private fun showPopupButton() {
-
-        val parentView = popupButton.parent as? ViewGroup
-        parentView?.removeView(popupButton)
-
-        popupWindow = PopupWindow(
-            popupButton,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            true
-        )
-//        popupWindow?.isOutsideTouchable = true
-//        popupWindow?.isTouchable = true
-
-        popupWindow?.setOnDismissListener {
-            // Perform any necessary cleanup or additional actions
-        }
-        popupButton.setOnClickListener {
-            showDialog()
-            hidePopupButton()
-        }
-        popupWindow?.showAtLocation(requireView(), Gravity.CENTER, 0, 0)
-    }
-
-    private fun hidePopupButton() {
-        if (popupWindow?.isShowing == true) {
-            popupWindow?.dismiss()
-        }
-    }
-
-    private fun showDialog(){
-        val alert = AlertDialog.Builder(requireContext())
-        alert.setTitle("READY TO TAKE THIS QUIZ?")
-        alert.setMessage("ARE YOU SURE YOU ARE READY TO TAKE THIS QUIZ?\nMake sure you have covered the topics in order to do this!")
-        alert.setPositiveButton("YES"){
-                _, _: Int -> findNavController().navigate(R.id.action_nav_setsFragment_to_nav_setQuiz)
-        }
-        alert.setNegativeButton("NO"){
-                _, _: Int ->Toast.makeText(requireContext(),"Good choice,learning makes a man perfect",Toast.LENGTH_SHORT).show()
-        }
-            .create().show()
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

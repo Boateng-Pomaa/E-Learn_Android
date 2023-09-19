@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
+import com.example.e_learn.HomeActivity
 import com.example.e_learn.R
 import com.example.e_learn.data.api.ApiList
 import com.example.e_learn.data.repository.*
@@ -48,7 +49,7 @@ class SetQuizFragment : Fragment() {
         viewModel = ViewModelProvider(this,viewModelFactory)[ScoreViewModel::class.java]
         _binding = FragmentSetQuizBinding.inflate(inflater, container, false)
         val root:View = binding.root
-
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
         loadQuestions()
         displayQuestion(root)
         setupSubmitButton(root)

@@ -3,8 +3,12 @@ package com.example.e_learn
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,10 +17,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.e_learn.databinding.ActivityHomeBinding
 import com.example.e_learn.ui.login.ui.PostQuestion.PostQuestionFragment
+import com.example.e_learn.ui.login.ui.mathTopics.SetsFragment
 import com.example.e_learn.ui.login.ui.profile.HostFragment
-import com.example.e_learn.ui.login.ui.profile.ProfileFragment
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,16 +35,18 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarHome.toolbar)
 
-        binding.appBarHome.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+            binding.appBarHome.fab.visibility = View.INVISIBLE
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navHost:NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_home) as NavHostFragment
          navController =navHost.navController
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            // Update floating action button actions based on the current fragment
+            updateFloatingActionButtonActions()
+        }
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,R.id.nav_subject, R.id.nav_gallery, R.id.nav_slideshow
@@ -59,11 +64,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-                // Handle click for Menu Item 1
                 return true
             }
             R.id.postQues -> {
-                // Handle click for Menu Item 2
                     val myFragment = PostQuestionFragment()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment_content_home, myFragment)
@@ -80,21 +83,62 @@ class HomeActivity : AppCompatActivity() {
                     .commit()
                 return true
             }
-            // Add more cases for other menu items if needed
         }
         return super.onOptionsItemSelected(item)
     }
-
-
     override fun onSupportNavigateUp(): Boolean {
        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+    fun updateFloatingActionButtonVisibility() {
+        val currentFragment = getCurrentFragment()
+        // Determine if the FAB should be visible based on the current fragment
+        val isFabVisible = when (currentFragment) {
+            is PostQuestionFragment -> true
+            is SetsFragment -> true
+            else -> false
+        }
+        // Set FAB visibility
+        binding.appBarHome.fab.visibility = if (isFabVisible) View.VISIBLE else View.GONE
+    }
+     fun updateFloatingActionButtonActions(){
+        when (getCurrentFragment()) {
+            is SetsFragment -> {
+                binding.appBarHome.fab.setOnClickListener {
+                        val alert = AlertDialog.Builder(this)
+                        alert.setTitle("READY TO TAKE THIS QUIZ?")
+                        alert.setMessage("ARE YOU SURE YOU ARE READY TO TAKE THIS QUIZ?\nMake sure you have covered the topics in order to do this!")
+                        alert.setPositiveButton("YES"){
+                                _, _: Int -> navController.navigate(R.id.action_nav_setsFragment_to_nav_setQuiz)
+                        }
+                        alert.setNegativeButton("NO"){
+                                _, _: Int ->
+                            Toast.makeText(this,"Good choice,learning makes a man perfect",
+                                Toast.LENGTH_SHORT).show()
+                        }
+                            .create().show()
+                    }
+                binding.appBarHome.fab.visibility = View.VISIBLE
+            }
+            is PostQuestionFragment -> {
+                binding.appBarHome.fab.setOnClickListener {
+                   navController.navigate(R.id.nav_slideshow)
+                }
+                binding.appBarHome.fab.visibility = View.VISIBLE
+            }
+            else -> {
+                // Hide FAB for other fragments
+                binding.appBarHome.fab.visibility = View.GONE
+            }
+            // Add cases for other fragments as needed
+
+        }
+    }
+    private fun getCurrentFragment(): Fragment? {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_home)
+        return navHostFragment?.childFragmentManager?.primaryNavigationFragment
     }
     fun setAppBarTitle(title: String) {
         supportActionBar?.title = title
     }
-//    fun showfab2(){
-//
-//        binding.appBarHome.fab.visibility = View.GONE
-//        binding.appBarHome.floatingBtn.visibility = View.VISIBLE
-//    }
+
 }

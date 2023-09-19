@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.e_learn.HomeActivity
 import com.example.e_learn.R
 import com.example.e_learn.data.api.ApiList
 import com.example.e_learn.data.model.FeedModel
@@ -52,7 +53,7 @@ class SlideshowFragment: Fragment(),FeedAdapter.OnItemClickListener {
          feedViewModel = ViewModelProvider(this,viewModelFactory)[SlideshowViewModel::class.java]
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
         binding.imageButton.setOnClickListener{
             search()
             //adapter.notifyDataSetChanged()

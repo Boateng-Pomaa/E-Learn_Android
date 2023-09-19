@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.e_learn.HomeActivity
 import com.example.e_learn.data.api.ApiList
 import com.example.e_learn.data.repository.*
 import com.example.e_learn.databinding.FragmentGalleryBinding
@@ -42,6 +43,9 @@ class PostQuestionFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val sharePref = SharedPreferenceUtil(requireContext())
+
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
+        (activity as HomeActivity).updateFloatingActionButtonActions()
 
         postViewModel.postResult.observe(this){
             Resource ->

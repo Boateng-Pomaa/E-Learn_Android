@@ -19,14 +19,7 @@ class Subjects : Fragment(),SubjectsAdapter.onItemClickListener {
     override fun onItemClick(subject: Subject) {
         when (subject.title){
             "Core Mathematics" ->{
-                //val fragment = MathsTopicsFragment()
-                // Pass any necessary data to the TopicsFragment using arguments
-//                val bundle = Bundle()
-//                bundle.putString("subjectTitle", subject.title)
-//                fragment.arguments = bundle
-
                 findNavController().navigate(R.id.action_nav_subject_to_nav_mathTopics)
-
             }
             "Integrated Science" ->{
                  Toast.makeText(requireContext(),"Clicked: ${subject.title}",Toast.LENGTH_SHORT).show()
@@ -58,6 +51,7 @@ class Subjects : Fragment(),SubjectsAdapter.onItemClickListener {
         val rootView = binding.root
 
         (activity as HomeActivity).setAppBarTitle("Subjects")
+        (activity as HomeActivity).updateFloatingActionButtonVisibility()
 
         val adapter = SubjectsAdapter(subjectList,this)
         binding.subList.adapter = adapter
