@@ -20,7 +20,7 @@ interface ApiList {
      //user Questions
      @GET("/yourQuestions/{id}")
      @Headers("Accept:application/json","Content-Type:application/json")
-     fun userQuestions(@Path("id")userId:String):Call<UserQuestionResponse>
+     fun userQuestions(@Path("id")userId:String):Call<FeedResponse>
 
      //adding answers
      @POST("/answer/{id}")
@@ -54,6 +54,9 @@ interface ApiList {
     @POST("/signup")
      fun signUp(@Body signupData:SignUpData): Call<SignUpResponse>
 
+     @POST("/saveScore/{id}/{score}/{quiz}")
+     fun saveScore(@Path("id")id:String, @Path("score")score:Int,@Path("quiz")quiz:String):Call<SaveScoreResponse>
+
 
     @POST("/post/{username}")
     fun postQuestion(@Path("username")username:String,@Body postReq:PostRequest):Call<PostResponse>
@@ -61,7 +64,7 @@ interface ApiList {
     companion object {
         private const val TAG = "--ApiService  192.168.0.101,  10.225.0.245"
 
-        private const val BASE_URL = "http://192.168.0.101:5000"
+        private const val BASE_URL = "https://elearn-hia3.onrender.com/"
 
         fun create(): ApiList {
             val retrofit = Retrofit.Builder()

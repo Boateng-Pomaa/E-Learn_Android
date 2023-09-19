@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val loginRepo = LoginRepository(apilist)
         val signupRepo = SignupRepository(apilist)
         val postRepo = PostRepository(apilist)
@@ -45,7 +44,8 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
+        val scoreRepo = ScoreRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
         loginViewModel = ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
 //        val userDetails = SharedPreferenceUtil.getUserData(this)
 //        val userId = userDetails.id

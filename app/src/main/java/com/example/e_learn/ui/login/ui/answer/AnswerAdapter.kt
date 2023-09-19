@@ -39,7 +39,7 @@ class AnswerAdapter(var answer:List<AnswerModel>,private val voteClickListener:(
         private val answerTxt: TextView = itemView1.findViewById(R.id.txtAnswer)
         private val upVote: ImageButton = itemView1.findViewById(R.id.imageButton2)
         private val downVote:ImageButton = itemView1.findViewById(R.id.imageButton3)
-
+        private val timeTxt:TextView = itemView1.findViewById(R.id.txtTime)
         private val count1:TextView = itemView1.findViewById(R.id.txtCount)
         private val userName: TextView = itemView1.findViewById(R.id.txtUser)
 
@@ -48,6 +48,7 @@ class AnswerAdapter(var answer:List<AnswerModel>,private val voteClickListener:(
             answerTxt.text = answer.content
             count1.text = answer.upvote.toString()
             userName.text = answer.username
+            timeTxt.text = answer.createdAt
 
             upVote.setOnClickListener {
                 voteClickListener(answer,true)

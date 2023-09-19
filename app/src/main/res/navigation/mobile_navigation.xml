@@ -74,7 +74,15 @@
     <fragment
         android:id="@+id/nav_setsFragment"
         android:name="com.example.e_learn.ui.login.ui.mathTopics.SetsFragment"
-        android:layout="@layout/fragment_sets"/>
+        android:layout="@layout/fragment_sets">
+        <action
+            android:id="@+id/action_nav_setsFragment_to_nav_setQuiz"
+            app:destination="@id/nav_setQuiz" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_setQuiz"
+        android:name="com.example.e_learn.ui.login.ui.mathquizzes.SetQuizFragment"
+        android:layout="@layout/fragment_set_quiz"/>
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.e_learn.ui.login.ui.PostQuestion.PostQuestionFragment"

@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e_learn.data.api.ApiList
 import com.example.e_learn.data.repository.*
 import com.example.e_learn.databinding.FragmentQuestionsBinding
+import com.example.e_learn.ui.login.ui.community.SlideshowViewModel
 import com.example.e_learn.utils.SharedPreferenceUtil
 import com.example.e_learn.viewModels.BaseViewModelFactory
 
 class QuestionsFragment : Fragment() {
     private var _binding: FragmentQuestionsBinding? = null
     private  val binding get() = _binding!!
-    private lateinit var viewModel: QuestionsViewModel
+    private lateinit var viewModel: SlideshowViewModel
     private lateinit var viewModelFactory: BaseViewModelFactory
     private var apilist =  ApiList.create()
     override fun onCreateView(
@@ -35,8 +36,9 @@ class QuestionsFragment : Fragment() {
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
-        viewModel = ViewModelProvider(this,viewModelFactory)[QuestionsViewModel::class.java]
+        val scoreRepo = ScoreRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModel = ViewModelProvider(this,viewModelFactory)[SlideshowViewModel::class.java]
 
         val adapter = QuestionAdapter()
         binding.feedList.layoutManager = LinearLayoutManager(requireContext())
@@ -45,7 +47,7 @@ class QuestionsFragment : Fragment() {
         viewModel.feeds.observe(this) { Resource ->
             if(Resource.isLoading()){
                 binding.loading3.visibility = View.VISIBLE
-                Toast.makeText(requireContext(),"Loading Feed", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Loading Your Questions", Toast.LENGTH_LONG).show()
             }
             else if (Resource.isSuccess()) {
                 binding.loading3.visibility = View.GONE
@@ -58,7 +60,7 @@ class QuestionsFragment : Fragment() {
                 binding.loading3.visibility = View.GONE
                 binding.imageView3.visibility = View.VISIBLE
                 binding.isError.visibility = View.VISIBLE
-                Toast.makeText(requireContext(),"Failed to Load Feed "+" Pull to Refresh", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Failed to Load  "+" Pull to Refresh", Toast.LENGTH_LONG).show()
             }
         }
         val sharePref = SharedPreferenceUtil(requireContext())

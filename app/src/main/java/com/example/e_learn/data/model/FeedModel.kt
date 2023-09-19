@@ -10,5 +10,5 @@ data class FeedModel(
     @SerializedName("username") var username:String,
     @SerializedName("title")  var title:String,
     @SerializedName("question") var question:String,
-//    var createdAt:String?
+    @SerializedName("createdAt") var createdAt:String
 ) : Parcelable

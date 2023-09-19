@@ -34,7 +34,8 @@ class AnswerFragment : Fragment() {
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
+        val scoreRepo = ScoreRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[AnswerViewModel::class.java]
         _binding = FragmentAnswerBinding.inflate(inflater, container, false)
         val root:View = binding.root

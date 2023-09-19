@@ -35,7 +35,8 @@ class QuestionScrollingFragment : Fragment() {
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
+        val scoreRepo = ScoreRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[AnswerViewModel::class.java]
         _binding = FragmentQuestionScrollingBinding.inflate(inflater, container, false)
         val root:View = binding.root
@@ -46,6 +47,7 @@ class QuestionScrollingFragment : Fragment() {
             binding.txtTitle.text = data.title
             binding.txtDescription.text = data.question
             binding.txtUser1.text = data.username
+            binding.answerBtn.text = data.createdAt
             questionId = data._id
             Log.d("RECEIVED DATA", data.question)
         }

@@ -5,4 +5,5 @@ data class User(
     @SerializedName("username") var username: String,
     @SerializedName("email") var email: String,
     @SerializedName("token") var token: String,
+    @SerializedName("scores") var scores:String
 )

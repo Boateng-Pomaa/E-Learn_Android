@@ -32,7 +32,8 @@ class ProfileFragment : Fragment() {
         val userRepo = UserRepository(apilist)
         val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo)
+        val scoreRepo = ScoreRepository(apilist)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -47,6 +48,7 @@ class ProfileFragment : Fragment() {
                 if (profile != null) {
                     binding.usernameText.text = profile.username
                     binding.emailText.text = profile.email
+                    binding.txtScore.text = profile.scores
                 } else if (Resource.isError()) {
 //                binding.loading3.visibility = View.GONE
 //                binding.imageView3.visibility = View.VISIBLE

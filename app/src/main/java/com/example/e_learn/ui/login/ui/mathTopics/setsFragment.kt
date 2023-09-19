@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.e_learn.HomeActivity
 import com.example.e_learn.R
 import com.example.e_learn.databinding.FragmentSetsBinding
@@ -78,7 +79,6 @@ class SetsFragment : Fragment(), OnPageScrollListener {
             ViewGroup.LayoutParams.WRAP_CONTENT,
             true
         )
-
 //        popupWindow?.isOutsideTouchable = true
 //        popupWindow?.isTouchable = true
 
@@ -87,6 +87,7 @@ class SetsFragment : Fragment(), OnPageScrollListener {
         }
         popupButton.setOnClickListener {
             showDialog()
+            hidePopupButton()
         }
         popupWindow?.showAtLocation(requireView(), Gravity.CENTER, 0, 0)
     }
@@ -102,7 +103,7 @@ class SetsFragment : Fragment(), OnPageScrollListener {
         alert.setTitle("READY TO TAKE THIS QUIZ?")
         alert.setMessage("ARE YOU SURE YOU ARE READY TO TAKE THIS QUIZ?\nMake sure you have covered the topics in order to do this!")
         alert.setPositiveButton("YES"){
-                _, _: Int ->Toast.makeText(requireContext(),"Brave of you!",Toast.LENGTH_SHORT).show()
+                _, _: Int -> findNavController().navigate(R.id.action_nav_setsFragment_to_nav_setQuiz)
         }
         alert.setNegativeButton("NO"){
                 _, _: Int ->Toast.makeText(requireContext(),"Good choice,learning makes a man perfect",Toast.LENGTH_SHORT).show()

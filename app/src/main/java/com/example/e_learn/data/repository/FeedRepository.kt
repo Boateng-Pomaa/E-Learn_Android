@@ -12,4 +12,8 @@ class FeedRepository(private val apilist: ApiList) {
     fun search(searchReq: String): Call<FeedResponse>{
         return apilist.search(searchReq)
     }
+
+    fun userQuestions(userId: String): Call<FeedResponse> {
+        return apilist.userQuestions(userId)
+    }
 }

@@ -10,14 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.e_learn.R
 import com.example.e_learn.data.model.FeedModel
 import com.example.e_learn.data.model.FeedResponse
-import com.example.e_learn.data.model.UserQuestionResponse
 
-class QuestionAdapter():RecyclerView.Adapter<QuestionAdapter.FeedViewHolder>()  {
+class QuestionAdapter :RecyclerView.Adapter<QuestionAdapter.FeedViewHolder>()  {
 
     var feeds:List<FeedModel>? = null
 
-    fun setData(newData: UserQuestionResponse){
-        feeds = newData.userQuestion
+    fun setData(newData: FeedResponse?){
+        feeds = newData?.feeds
         notifyDataSetChanged()
     }
     inner class FeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -58,10 +57,6 @@ class QuestionAdapter():RecyclerView.Adapter<QuestionAdapter.FeedViewHolder>()  
         }
     }
 
-//    fun bind(data:feeds){
-//        titles.text = data.title
-//        quest.text = .question
-//    }
 
 
 

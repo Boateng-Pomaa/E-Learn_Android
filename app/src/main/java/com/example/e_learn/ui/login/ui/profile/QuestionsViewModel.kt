@@ -14,12 +14,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class QuestionsViewModel (private val UQRepo: UserQuestionsRepository) : ViewModel() {
-    private val _feeds = MutableLiveData<Resource<UserQuestionResponse>>()
-    val feeds: LiveData<Resource<UserQuestionResponse>> get()  = _feeds
+    private val _userfeeds = MutableLiveData<Resource<UserQuestionResponse>>()
+    val userfeeds: LiveData<Resource<UserQuestionResponse>> get()  = _userfeeds
 
 
     fun getUserQuestions(userId: String) {
-        _feeds.value = Resource.loading()
+        _userfeeds.value = Resource.loading()
         viewModelScope.launch {
             try {
                 UQRepo.userQuestions(userId).enqueue(object : Callback<UserQuestionResponse> {
@@ -29,15 +29,15 @@ class QuestionsViewModel (private val UQRepo: UserQuestionsRepository) : ViewMod
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body()!!
-                            _feeds.value = Resource.success(data)
+                            _userfeeds.value = Resource.success(data)
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: response.message()
-                            _feeds.value = Resource.error( errorMessage)
+                            _userfeeds.value = Resource.error( errorMessage)
                         }
                     }
 
                     override fun onFailure(call: Call<UserQuestionResponse>, t: Throwable) {
-                        _feeds.value = t.message?.let { Resource.error(it) }
+                        _userfeeds.value = t.message?.let { Resource.error(it) }
                         t.printStackTrace()
                     }
                 })

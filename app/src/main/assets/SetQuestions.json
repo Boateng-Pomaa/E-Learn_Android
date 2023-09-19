@@ -1,0 +1,297 @@
+{
+  "Quiz": [
+  {
+    "question": "The union of the sets {1, 2, 5} and {1, 2, 6} is the set _______________",
+    "options": [
+      "{1, 2, 6, 1}",
+      "{1, 2, 5, 6}",
+      "{1, 2, 1, 2}",
+      "{1, 5, 6, 3}"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "The intersection of the sets {1, 2, 5} and {1, 2, 6} is the set _____________",
+    "options": [
+      "{1, 2}",
+      "{5, 6}",
+      "{2, 5}",
+      "{1, 6}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "Two sets are called disjoint if there _____________ is the empty set.",
+    "options": [
+      "Union",
+      "Difference",
+      "Intersection",
+      "Complement"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "Which of the following two sets are disjoint?",
+    "options": [
+      "{1, 3, 5} and {1, 3, 6}",
+      "{1, 2, 3} and {1, 2, 3}",
+      "{1, 3, 5} and {2, 3, 4}",
+      "{1, 3, 5} and {2, 4, 6}"
+    ],
+    "correctOption": 3
+  },
+  {
+    "question": "The difference of {1, 2, 3} and {1, 2, 5} is the set ____________",
+    "options": [
+      "{1}",
+      "{5}",
+      "{3}",
+      "{2}"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "The complement of the set A is _____________",
+    "options": [
+      "A – B",
+      "U – A",
+      "A – U",
+      "B – A"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "The bit string for the set {2, 4, 6, 8, 10} (with universal set of natural numbers less than or equal to 10) is ____________________",
+    "options": [
+      "0101010101",
+      "1010101010",
+      "1010010101",
+      "0010010101"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "Let Ai = {i, i+1, i+2, …..}. Then set {n, n+1, n+2, n+3, …..} is the _________ of the set Ai.",
+    "options": [
+      "Union",
+      "Intersection",
+      "Set Difference",
+      "Disjoint"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "The bit strings for the sets are 1111100000 and 1010101010. The union of these sets is ___________",
+    "options": [
+      "1010100000",
+      "1010101101",
+      "1111111100",
+      "1111101010"
+    ],
+    "correctOption": 3
+  },
+  {
+    "question": "The set difference of the set A with null set is __________",
+    "options": [
+      "A",
+      "null",
+      "U",
+      "B"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "If A = {2, 3, 4, 5} B = {4, 5, 6, 7} C = {6, 7, 8, 9} D = {8, 9, 10, 11}, find A ∪ B",
+    "options": [
+      "{2, 3, 4, 5, 6, 7}",
+      "{2, 3, 4, 5, 6, 7, 8, 9}",
+      "{2, 3, 4, 5, 6, 7, 8, 9}",
+      "{4, 5, 6, 7, 8, 9}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "If A = {4, 6, 8, 10, 12} B = {8, 10, 12, 14} C = {12, 14, 16} D = {16, 18}, find A ∩ (C ∩ D)",
+    "options": [
+      "{8, 10, 12}",
+      "{12, 14}",
+      "∅",
+      "{8, 10, 12, 14, 16}"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "If A = {4, 7, 10, 13, 16, 19, 22}   B = {5, 9, 13, 17, 20} C = {3, 5, 7, 9, 11, 13, 15, 17}   D = {6, 11, 16, 21} then find A - C",
+    "options": [
+      "{4, 10, 16, 19, 22}",
+      "{6, 16, 21}",
+      "{20}",
+      "{16, 18}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "If A = {2, 3, 4, 5} B = {4, 5, 6, 7} C = {6, 7, 8, 9} D = {8, 9, 10, 11}, find B ∪ (C ∪ D)",
+    "options": [
+      "{3, 4, 7, 8}",
+      "{4, 5, 6, 7, 8, 9, 10, 11}",
+      "{1, 2, 3, 4, 5}",
+      "{2, 4, 5, 6}"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Find the union, intersection and the difference (A - B) of the following pairs of sets. (b) A = {x : x ∈ W, 0 < x ≤ 7} B = {x : x ∈ W, 4 < x < 9}",
+    "options": [
+      "{1, 2, 3, 4, 5, 6, 7, 8}, {5, 6, 7}, {1, 2, 3, 4}",
+      "{-1, 0, 1, 2, 3}, {0, 1}, {-1}",
+      "{1, 2, 3, 4, 6, 8, 10, 12}, {2, 4, 6}, {1, 3, 12}",
+      "{1, 2, 3, 4, 5, 6, 7}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "Let X = {2, 4, 5, 6}   Y = {3, 4, 7, 8}   Z = {5, 6, 7, 8}, find (X - Y) ∪ (Y - X)",
+    "options": [
+      "{2, 3, 5, 6, 7, 8}",
+      "{3, 4, 7, 8}",
+      "{3, 4, 5, 6}",
+      "{1, 2, 3, 4, 5}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "Let ξ = {1, 2, 3, 4, 5, 6, 7} and A = {1, 2, 3, 4, 5} B = {2, 5, 7} show that (A ∩ B)' = A' ∪ B'",
+    "options": [
+      "L.H.S. = R. H. S = {6}",
+      "{1, 2, 3, 4, 5, 7}",
+      "L.H.S. = R. H. S = {1, 3, 4, 6, 7}",
+      "{2, 5}"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "Let P = {a, b, c, d}   Q = {b, d, f}   R = {a, c, e} verify that (P ∪ Q) ∪ R = P ∪ (Q ∪ R)",
+    "options": [
+      "{a, b, c, d, e, f}",
+      "{d}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": " Let A be {1, 2, 3, 4}, U be set of all natural numbers, then U-A'(complement of A) is given by set.",
+    "options": [
+      "{1, 2, 3, 4, 5, 6, ....}",
+      "All of the above",
+      "{5, 6, 7, 8, 9, ......}",
+      "{1, 2, 3, 4}"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "A…………. is an ordered collection of objects.",
+    "options": [
+      "Relation",
+      "Proposition",
+      "Set",
+      "Function"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "What is the cardinality of the set of odd positive integers less than 10?",
+    "options": [
+      "3",
+      "5",
+      "24",
+      "01"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "What is the cardinality of the set of odd positive integers less than 10?",
+    "options": [
+      "3",
+      "5",
+      "20",
+      "10"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "The range of function f(x) = sin(x) is (-∞∞, ∞).",
+    "options": [
+      "False",
+      "True"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "For two sets C and D the set (CD) n D will be",
+    "options": [
+      "C",
+      "D",
+      "Null",
+      "None of the above"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "The bit string for the set {2, 4, 6, 8, 10} (with universal set of natural numbers less than or equal to 10) is",
+    "options": [
+      "1010101010",
+      "0101010101",
+      "0010010101",
+      "1010010101"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "If C = {1} then CX (CX C) = (CX C) X C the given statement is true or false.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correctOption": 1
+  },
+  {
+    "question": "Let C = {1,2,3,4} and D = {1, 2, 3, 4} then which of the following hold not true in this case?",
+    "options": [
+      "C-D=D-C",
+      "C-D=0",
+      "CUD=CnD"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "Let C = {1,2,3,4) and D = {1, 2, 3, 4} then which of the following hold not true in this case?",
+    "options": [
+      "C-D=D-C",
+      "C-D = 0",
+      "CUD Cn D",
+      "CnD=C-D"
+    ],
+    "correctOption": 2
+  },
+  {
+    "question": "{x: x is an integer neither positive nor negative} is",
+    "options": [
+      "Non-empty and Finite set",
+      "Non-empty set",
+      "Empty set",
+      "Finite set"
+    ],
+    "correctOption": 0
+  },
+  {
+    "question": "Let C and D be two sets then which of the following statements are true? i)CUD=DUC, ii)Cn D D n C",
+    "options": [
+      "Only ii",
+      "Only i",
+      "Both i and ii",
+      "None of the above"
+    ],
+    "correctOption": 2
+  }
+]
+}

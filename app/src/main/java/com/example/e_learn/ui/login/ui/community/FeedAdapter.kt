@@ -22,6 +22,7 @@ class FeedAdapter ( var feeds:List<FeedModel>,private val listen:OnItemClickList
              val titles:TextView = itemView.findViewById(R.id.title)
              val quest:TextView = itemView.findViewById(R.id.question)
              val userName:TextView = itemView.findViewById(R.id.user)
+            val txtTme:TextView = itemView.findViewById(R.id.timText)
        init {
            cardview.setOnClickListener(this)
             }
@@ -53,6 +54,7 @@ class FeedAdapter ( var feeds:List<FeedModel>,private val listen:OnItemClickList
         holder.titles.text = tiledata.title
         holder.quest.text = tiledata.question
         holder.userName.text = tiledata.username
+        holder.txtTme.text = tiledata.createdAt
     }
 
     //    fun bind(data:feeds){
