@@ -20,9 +20,9 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_send"
             android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_menu_send"
-            android:title="@string/tit_logout"/>
+<!--        <item-->
+<!--            android:id="@+id/nav_logout"-->
+<!--            android:icon="@drawable/ic_menu_send"-->
+<!--            android:title="@string/tit_logout"/>-->
     </group>
 </menu>

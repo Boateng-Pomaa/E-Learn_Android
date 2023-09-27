@@ -8,19 +8,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 interface ApiList {
-    //TODO : Login User
     @POST("/login")
     fun doLogin(@Body loginReq:LoginRequest): Call<LoginResponse>
 
-    //TODO : Get Student
     @GET("/profile/{id}")
     @Headers("Accept:application/json","Content-Type:application/json")
      fun getUser(@Path("id")userId:String): Call<UserResponse>
 
      //user Questions
-     @GET("/yourQuestions/{id}")
+     @GET("/userQuestions/{id}")
      @Headers("Accept:application/json","Content-Type:application/json")
      fun userQuestions(@Path("id")userId:String):Call<FeedResponse>
+
+     @GET("/userAnswers/{id}")
+     @Headers("Accept:application/json","Content-Type:application/json")
+     fun userAnswers(@Path("id")userId:String):Call<AnswerResponse>
 
      //adding answers
      @POST("/answer/{id}")
@@ -33,14 +35,19 @@ interface ApiList {
     @Headers("Accept:application/json","Content-Type:application/json")
     fun getAnswer(@Path("questionId")questionId: String):Call<AnswerResponse>
 
-//     //voteCount
-//     @POST("/upvote")
-//     fun updateVote(@Query("answerId") answerId:String,@Query("isUpvote") isUpvote:Boolean)
-     
-//     //user Answers
-//     @GET("/yourAnswers")
-//     @Headers("Accept:application/json","Content-Type:application/json")
-//     fun userAnswers(@Path("id")userId:String): Call<userAnswersResponse>
+    @POST ("/requestpassword/{email}")
+    fun requestPassword(@Path("email")email: String):Call<RequestResponse>
+
+    @POST("/resetPassword/{id}/{Token}")
+    fun resetPassword(@Path("id") userId:String,
+    @Path("Token") token:String, @Body passReq:PasswordRequest):Call<ResetResponse>
+
+     //voteCount
+     @POST("/upvote/{answerId}")
+     fun upvote(@Path("answerId") answerId:String):Call<AnswerResponse>
+
+     @POST("/downvote/{answerId}")
+     fun downvote(@Path("answerId") answerId: String):Call<AnswerResponse>
 
      //searching
      @GET("/search")

@@ -75,6 +75,89 @@ class AnswerViewModel (private val answerRepo:AnswerRepository): ViewModel() {
             }
         }
     }
+
+    fun userAnswers(userId: String){
+        _answerResult.value = Resource.loading()
+        viewModelScope.launch {
+            try {
+                answerRepo.userAnswers(userId).enqueue(object : Callback<AnswerResponse>{
+                    override fun onResponse(
+                        call: Call<AnswerResponse>,
+                        response: Response<AnswerResponse>
+                    ) {
+                        if (response.isSuccessful) {
+                            val answerLoaded = response.body()!!
+                            _answerResult.value = Resource.success(answerLoaded)
+                        } else {
+                            val errorMessage = response.errorBody()?.string() ?: response.message()
+                            _answerResult.value = Resource.error( errorMessage)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AnswerResponse>, t: Throwable) {
+                        _answerResult.value = t.message?.let { Resource.error(it) }
+                    }
+
+                })
+            }catch (e:Exception){
+                Log.i("AnswerViewMo userAns:", e.toString())
+                print(e)
+            }
+        }
+    }
+
+    fun upvoteAnswer(answerId: String) {
+        _answerResult.value = Resource.loading()
+        viewModelScope.launch {
+            try {
+                answerRepo.upvote(answerId).enqueue(object : Callback<AnswerResponse> {
+                    override fun onResponse(call: Call<AnswerResponse>, response: Response<AnswerResponse>) {
+                        if (response.isSuccessful) {
+                            val updatedAnswer = response.body()!!
+                            _answerResult.postValue(Resource.success(updatedAnswer))
+                        } else {
+                            val errorMessage = response.errorBody()?.string() ?: response.message()
+                            _answerResult.postValue(Resource.error(errorMessage))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AnswerResponse>, t: Throwable) {
+                        _answerResult.postValue(Resource.error(t.message ?: "Unknown error"))
+                    }
+                })
+            } catch (e: Exception) {
+                Log.e("AnswerViewModel", "Error during upvote: ${e.message}")
+            }
+        }
+    }
+
+    fun downvoteAnswer(answerId: String) {
+        _answerResult.value = Resource.loading()
+        viewModelScope.launch {
+            try {
+                answerRepo.downvote(answerId).enqueue(object : Callback<AnswerResponse> {
+                    override fun onResponse(call: Call<AnswerResponse>, response: Response<AnswerResponse>) {
+                        if (response.isSuccessful) {
+                            val updatedAnswer = response.body()!!
+                            _answerResult.postValue(Resource.success(updatedAnswer))
+                        } else {
+                            val errorMessage = response.errorBody()?.string() ?: response.message()
+                            _answerResult.postValue(Resource.error(errorMessage))
+                        }
+                    }
+
+                    override fun onFailure(call: Call<AnswerResponse>, t: Throwable) {
+                        _answerResult.postValue(Resource.error(t.message ?: "Unknown error"))
+                    }
+                })
+            } catch (e: Exception) {
+                Log.e("AnswerViewModel", "Error during down vote: ${e.message}")
+            }
+        }
+    }
+
+
+
     override fun onCleared() {
         super.onCleared()
         Log.i("AnswerViewModel", "AnswerViewModel destroyed!")

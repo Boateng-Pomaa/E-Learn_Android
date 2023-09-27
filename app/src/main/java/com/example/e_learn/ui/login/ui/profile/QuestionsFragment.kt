@@ -34,10 +34,9 @@ class QuestionsFragment : Fragment() {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[SlideshowViewModel::class.java]
 
         val adapter = QuestionAdapter()

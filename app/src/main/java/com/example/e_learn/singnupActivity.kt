@@ -37,10 +37,9 @@ class singnupActivity : AppCompatActivity(), CoroutineScope {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         signUpViewModel = ViewModelProvider(this, viewModelFactory)[SignUpViewModel::class.java]
 
         signUpViewModel.signUpResult.observe(this) { Resource ->

@@ -42,14 +42,11 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         loginViewModel = ViewModelProvider(this,viewModelFactory)[LoginViewModel::class.java]
-//        val userDetails = SharedPreferenceUtil.getUserData(this)
-//        val userId = userDetails.id
-//        Log.i("RETRIEVED", userId)
+
         loginViewModel.loginResult.observe(this) { Resource ->
             if(Resource.isLoading()){
                 binding.loading.visibility = VISIBLE
@@ -75,15 +72,18 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
             launch {
                 login()
             }
-
          }
+        binding.textView4.setOnClickListener {
+            val pass = Intent(this,ForgetPassword::class.java)
+            startActivity(pass)
+            finish()
+        }
         binding.txtSignup.setOnClickListener {
             val reg = Intent(this@LoginActivity,singnupActivity::class.java)
             startActivity(reg)
             finish()
         }
             }
-
 
         private fun login (){
             if (validation()) {
@@ -96,7 +96,6 @@ class LoginActivity : AppCompatActivity(),CoroutineScope {
 
                         }
                     }
-
 
         private fun validation(): Boolean {
             var value = true

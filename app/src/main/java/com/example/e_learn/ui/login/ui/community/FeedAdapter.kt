@@ -13,6 +13,7 @@ import com.example.e_learn.data.model.FeedResponse
 
 
 class FeedAdapter ( var feeds:List<FeedModel>,private val listen:OnItemClickListener): RecyclerView.Adapter<FeedAdapter.FeedViewHolder>()  {
+
     fun setData(newData: FeedResponse){
         feeds = newData.feeds
         notifyDataSetChanged()

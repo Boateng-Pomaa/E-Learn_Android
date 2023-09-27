@@ -35,10 +35,9 @@ class PostQuestionFragment : Fragment() {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         postViewModel = ViewModelProvider(this,viewModelFactory)[GalleryViewModel::class.java]
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -59,7 +58,7 @@ class PostQuestionFragment : Fragment() {
                 Toast.makeText(requireContext(),"Question Posted", Toast.LENGTH_LONG).show()
             }else if (Resource.isError()){
                 binding.loading2.visibility = View.GONE
-                Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Make sure you are logged in\n Or check you internet connection", Toast.LENGTH_LONG).show()
             }
         }
 

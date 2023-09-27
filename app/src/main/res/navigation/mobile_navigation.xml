@@ -82,7 +82,11 @@
     <fragment
         android:id="@+id/nav_setQuiz"
         android:name="com.example.e_learn.ui.login.ui.mathquizzes.SetQuizFragment"
-        android:layout="@layout/fragment_set_quiz"/>
+        android:layout="@layout/fragment_set_quiz">
+        <action
+            android:id="@+id/action_nav_setQuiz_to_quizComplete"
+            app:destination="@id/quizComplete" />
+    </fragment>
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.e_learn.ui.login.ui.PostQuestion.PostQuestionFragment"
@@ -145,5 +149,20 @@
         <action
             android:id="@+id/action_answerHost_to_nav_questionFull"
             app:destination="@id/nav_questionFull" />
+    </fragment>
+    <action
+        android:id="@+id/action_logout"
+        app:destination="@id/nav_home"/>
+
+    <fragment
+        android:id="@+id/quizComplete"
+        android:name="com.example.e_learn.ui.login.ui.mathquizzes.QuizCompletedFragment"
+        tools:layout="@layout/fragment_quiz_completed">
+        <action
+            android:id="@+id/action_quizComplete_to_nav_setQuiz"
+            app:destination="@id/nav_setQuiz" />
+        <action
+            android:id="@+id/action_quizComplete_to_nav_mathTopics"
+            app:destination="@id/nav_mathTopics" />
     </fragment>
 </navigation>

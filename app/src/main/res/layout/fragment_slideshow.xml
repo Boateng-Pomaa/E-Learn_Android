@@ -6,16 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.ui.community.SlideshowFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_list"
-        android:layout_width="360dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextMultiLine3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine3">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <ProgressBar
         android:id="@+id/loading3"
         android:layout_width="wrap_content"
@@ -60,8 +67,8 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="237dp"
+        android:layout_height="46dp"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:gravity="start|top"
@@ -75,10 +82,10 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="69dp"
-        android:layout_height="46dp"
+        android:layout_width="79dp"
+        android:layout_height="49dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="26dp"
         android:layout_marginRight="56dp"
         android:src="@android:drawable/ic_search_category_default"
         android:visibility="visible"
@@ -86,5 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

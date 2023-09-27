@@ -1,6 +1,5 @@
 package com.example.e_learn.viewModels
 import android.app.Application
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.e_learn.data.repository.*
@@ -9,11 +8,10 @@ import com.example.e_learn.ui.login.ui.answer.AnswerViewModel
 import com.example.e_learn.ui.login.ui.community.SlideshowViewModel
 import com.example.e_learn.ui.login.ui.mathquizzes.ScoreViewModel
 import com.example.e_learn.ui.login.ui.profile.ProfileViewModel
-import com.example.e_learn.ui.login.ui.profile.QuestionsViewModel
 
 
 @Suppress("UNCHECKED_CAST")
-class BaseViewModelFactory constructor(private val application: Application, private val repo:LoginRepository, private val repo2: SignupRepository, private val repo3:PostRepository, private val repo4:FeedRepository,private val repo5:UserQuestionsRepository, private val repo6: UserRepository,private val repo7:AnswerRepository,private val repo8:ScoreRepository): ViewModelProvider.Factory {
+class BaseViewModelFactory constructor(private val application: Application, private val repo:LoginRepository, private val repo2: SignupRepository, private val repo3:PostRepository, private val repo4:FeedRepository, private val repo6: UserRepository,private val repo7:AnswerRepository,private val repo8:ScoreRepository): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when{
@@ -29,9 +27,6 @@ class BaseViewModelFactory constructor(private val application: Application, pri
             modelClass.isAssignableFrom(SlideshowViewModel::class.java) ->{
                 SlideshowViewModel(this.repo4) as T
             }
-            modelClass.isAssignableFrom(QuestionsViewModel::class.java) ->{
-                QuestionsViewModel(this.repo5) as T
-            }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) ->{
                 ProfileViewModel(this.repo6) as T
             }
@@ -40,6 +35,12 @@ class BaseViewModelFactory constructor(private val application: Application, pri
             }
             modelClass.isAssignableFrom(ScoreViewModel::class.java) ->{
                 ScoreViewModel(this.repo8) as T
+            }
+            modelClass.isAssignableFrom(PasswordViewModel::class.java) ->{
+                PasswordViewModel(this.repo6) as T
+            }
+            modelClass.isAssignableFrom(ResetViewModel::class.java) ->{
+                ResetViewModel(this.repo6) as T
             }
               else ->  throw IllegalArgumentException("ViewModel Not Found")
         }

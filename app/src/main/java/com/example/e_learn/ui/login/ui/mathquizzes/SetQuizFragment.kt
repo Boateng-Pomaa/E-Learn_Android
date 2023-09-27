@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
 import com.example.e_learn.HomeActivity
@@ -42,10 +43,9 @@ class SetQuizFragment : Fragment() {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[ScoreViewModel::class.java]
         _binding = FragmentSetQuizBinding.inflate(inflater, container, false)
         val root:View = binding.root
@@ -79,17 +79,6 @@ class SetQuizFragment : Fragment() {
         val optionsRadioGroup: RadioGroup = binding.optionsRadioGroup
         currentQuestionView = view
 
-        if (currentQuestionIndex < questions.size) {
-            val correctOptionIndex = questions[currentQuestionIndex].correctOption
-            for (i in 0 until optionsRadioGroup.childCount) {
-                val radioButton = optionsRadioGroup.getChildAt(i) as RadioButton
-                if (i == correctOptionIndex) {
-                    radioButton.setTextColor(resources.getColor(R.color.green))
-                } else {
-                    radioButton.setTextColor(resources.getColor(R.color.red))
-                }
-            }
-        }
         val currentQuestion = questions[currentQuestionIndex]
         questionTextView.text = currentQuestion.question
         // Clear previously displayed options
@@ -131,7 +120,12 @@ class SetQuizFragment : Fragment() {
                     val userId = sharePref.retrieveData("userId").toString()
                     viewModel.saveScore(userId,score,quiz)
                     // All questions answered, display a message or navigate to a result screen
-                    Toast.makeText(context, "Quiz completed!", Toast.LENGTH_SHORT).show()
+                    val bundle = Bundle().apply {
+                        putInt("Score",score)
+                    }
+                    findNavController().navigate(R.id.action_nav_setQuiz_to_quizComplete,bundle)
+
+//                    Toast.makeText(context, "Quiz completed!", Toast.LENGTH_SHORT).show()
                 }
             }else{
                 Toast.makeText(context, "Please select an answer", Toast.LENGTH_SHORT).show()

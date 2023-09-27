@@ -46,10 +46,9 @@ class SlideshowFragment: Fragment(),FeedAdapter.OnItemClickListener {
         val postRepo = PostRepository(apilist)
         val comRepo = FeedRepository(apilist)
         val userRepo = UserRepository(apilist)
-        val uQRepo = UserQuestionsRepository(apilist)
         val ansRepo = AnswerRepository(apilist)
         val scoreRepo = ScoreRepository(apilist)
-        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,uQRepo,userRepo,ansRepo,scoreRepo)
+        viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
          feedViewModel = ViewModelProvider(this,viewModelFactory)[SlideshowViewModel::class.java]
         _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -58,9 +57,15 @@ class SlideshowFragment: Fragment(),FeedAdapter.OnItemClickListener {
             search()
             //adapter.notifyDataSetChanged()
         }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            // Implement the refresh action here (e.g., fetch new data)
+            feedViewModel.getFeed()
+            // Stop the refreshing animation
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
 
         binding.feedList.layoutManager = LinearLayoutManager(requireContext())
-
+        feedViewModel.getFeed()
 
         feedViewModel.feeds.observe(this) { Resource ->
             if(Resource.isLoading()){
@@ -82,11 +87,10 @@ class SlideshowFragment: Fragment(),FeedAdapter.OnItemClickListener {
                 binding.imageButton.visibility = View.INVISIBLE
                 binding.imageView3.visibility = View.VISIBLE
                 binding.isError.visibility = View.VISIBLE
-                Toast.makeText(requireContext(),"Failed to Load Feed "+" Pull to Refresh", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"Failed to Load Feed \n Pull to Refresh", Toast.LENGTH_LONG).show()
             }
         }
 
-        feedViewModel.getFeed()
         return root
     }
 

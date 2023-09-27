@@ -1,8 +1,7 @@
 package com.example.e_learn.data.repository
 
 import com.example.e_learn.data.api.ApiList
-import com.example.e_learn.data.model.LoginRequest
-import com.example.e_learn.data.model.LoginResponse
+import com.example.e_learn.data.model.*
 import retrofit2.Call
 
 /**
@@ -14,6 +13,5 @@ class LoginRepository(private val apiList: ApiList) {
    fun doLogin(loginReq: LoginRequest):Call<LoginResponse>{
         return apiList.doLogin(loginReq)
     }
-
 }
 

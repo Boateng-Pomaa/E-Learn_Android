@@ -17,7 +17,6 @@ import com.github.barteksc.pdfviewer.listener.OnPageScrollListener
 
 class SetsFragment : Fragment(), OnPageScrollListener {
     private lateinit var popupButton:Button
-    private  var popupWindow: PopupWindow? = null
     private var _binding: FragmentSetsBinding? = null
     private val binding get() = _binding!!
 

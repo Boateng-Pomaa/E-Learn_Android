@@ -23,7 +23,6 @@ class SubjectsAdapter (private val subjects: List<Subject>,private val listener:
         }
 
     }
-
     interface onItemClickListener{
         fun onItemClick(subject:Subject)
     }

@@ -22,7 +22,7 @@ class MathsTopicsAdapter(context:Context, topics: List<String>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: inflater.inflate(R.layout.spinner_item_layout, parent, false)
         val topic = getItem(position)
-        val textView = view.findViewById<TextView>(R.id.spinnerItemText)
+        val textView:TextView = view.findViewById(R.id.spinnerItemText)
         textView.text = topic.toString()
         return view
     }

@@ -13,4 +13,16 @@ class AnswerRepository(private val apilist:ApiList) {
     fun getAnswers(questionId: String):Call<AnswerResponse>{
         return apilist.getAnswer(questionId)
     }
+
+    fun userAnswers(userId: String):Call<AnswerResponse>{
+        return apilist.userAnswers(userId)
+    }
+
+    fun upvote(answerId:String):Call<AnswerResponse>{
+        return apilist.upvote(answerId)
+    }
+
+    fun downvote(answerId: String):Call<AnswerResponse>{
+        return apilist.downvote(answerId)
+    }
 }

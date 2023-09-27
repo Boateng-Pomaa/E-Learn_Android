@@ -1,5 +1,8 @@
 package com.example.e_learn
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -7,9 +10,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -63,9 +68,6 @@ class HomeActivity : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> {
-                return true
-            }
             R.id.postQues -> {
                     val myFragment = PostQuestionFragment()
                     supportFragmentManager.beginTransaction()
@@ -81,6 +83,10 @@ class HomeActivity : AppCompatActivity() {
                     .replace(R.id.nav_host_fragment_content_home, myFragment)
                     .addToBackStack("profileback")
                     .commit()
+                return true
+            }
+            R.id.logout -> {
+                logoutUser()
                 return true
             }
         }
@@ -139,6 +145,17 @@ class HomeActivity : AppCompatActivity() {
     }
     fun setAppBarTitle(title: String) {
         supportActionBar?.title = title
+    }
+    private fun logoutUser() {
+        // Clear user data from SharedPreferences
+        val sharedPreferences = this.getSharedPreferences("user_details", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

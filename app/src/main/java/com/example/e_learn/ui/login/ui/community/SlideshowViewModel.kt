@@ -60,7 +60,7 @@ class SlideshowViewModel(private val feedRepo:FeedRepository) : ViewModel() {
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body()!!
-                            _feeds.value = success(data)
+                            _feeds.postValue(success(data))
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: response.message()
                             _feeds.value = Resource.error( errorMessage)
@@ -88,13 +88,12 @@ class SlideshowViewModel(private val feedRepo:FeedRepository) : ViewModel() {
                     ) {
                         if (response.isSuccessful) {
                             val data = response.body()!!
-                            _feeds.value = Resource.success(data)
+                            _feeds.value = success(data)
                         } else {
                             val errorMessage = response.errorBody()?.string() ?: response.message()
                             _feeds.value = Resource.error( errorMessage)
-                        }
                     }
-
+                    }
                     override fun onFailure(call: Call<FeedResponse>, t: Throwable) {
                         _feeds.value = t.message?.let { Resource.error(it) }
                         t.printStackTrace()
@@ -106,7 +105,6 @@ class SlideshowViewModel(private val feedRepo:FeedRepository) : ViewModel() {
             }
         }
     }
-
 
     override fun onCleared() {
         super.onCleared()
