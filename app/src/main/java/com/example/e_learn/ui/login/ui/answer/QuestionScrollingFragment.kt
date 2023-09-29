@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -49,6 +50,21 @@ class QuestionScrollingFragment : Fragment() {
             binding.answerBtn.text = data.createdAt
             questionId = data._id
             Log.d("RECEIVED DATA", data.question)
+        }
+        viewModel.answerResult.observe(this){Resource->
+            if(Resource.isLoading()){
+//                binding.loading7.visibility = View.VISIBLE
+                Toast.makeText(requireContext(),"Recording Answer", Toast.LENGTH_SHORT).show()
+                binding.editTextTextMultiLine4.text.clear()
+            }
+            else if (Resource.isSuccess()) {
+                Toast.makeText(requireContext(),"Answer Recorded!", Toast.LENGTH_LONG).show()
+
+            }else if (Resource.isError()){
+//                binding.loading7.visibility = View.GONE
+//                binding.isError.visibility = View.VISIBLE
+                Toast.makeText(requireContext(),"Failed Try Again", Toast.LENGTH_SHORT).show()
+            }
         }
 
 

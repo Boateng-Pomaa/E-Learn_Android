@@ -64,7 +64,8 @@ interface ApiList {
      @POST("/saveScore/{id}/{score}/{quiz}")
      fun saveScore(@Path("id")id:String, @Path("score")score:Int,@Path("quiz")quiz:String):Call<SaveScoreResponse>
 
-
+     @GET("/getScore/{id}")
+     fun getScore(@Path("id")userId: String):Call<GetScoreResponse>
     @POST("/post/{username}")
     fun postQuestion(@Path("username")username:String,@Body postReq:PostRequest):Call<PostResponse>
 

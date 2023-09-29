@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.e_learn.data.api.ApiList
 import com.example.e_learn.data.repository.*
 import com.example.e_learn.databinding.FragmentProfileBinding
+import com.example.e_learn.ui.login.ui.community.FeedAdapter
+import com.example.e_learn.ui.login.ui.mathquizzes.ScoreViewModel
 import com.example.e_learn.utils.SharedPreferenceUtil
 import com.example.e_learn.viewModels.BaseViewModelFactory
 
@@ -20,6 +23,7 @@ class ProfileFragment : Fragment() {
     private lateinit var viewModelFactory: BaseViewModelFactory
     private var apilist =  ApiList.create()
     private lateinit var viewModel: ProfileViewModel
+    private lateinit var scoreViewModel:ScoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,32 +38,52 @@ class ProfileFragment : Fragment() {
         val scoreRepo = ScoreRepository(apilist)
         viewModelFactory = BaseViewModelFactory(requireActivity().application,loginRepo,signupRepo,postRepo,comRepo,userRepo,ansRepo,scoreRepo)
         viewModel = ViewModelProvider(this,viewModelFactory)[ProfileViewModel::class.java]
+        scoreViewModel = ViewModelProvider(this,viewModelFactory)[ScoreViewModel::class.java]
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val sharePref = SharedPreferenceUtil(requireContext())
+        val userId = sharePref.retrieveData("userId").toString()
+        Log.d("RETRIEVED",userId)
+
+        binding.textView10.setOnClickListener {
+            scoreViewModel.getScore(userId)
+        }
+        binding.scoreList.layoutManager = LinearLayoutManager(requireContext())
         viewModel.profile.observe(this) { Resource ->
             if (Resource.isLoading()) {
-//                binding.loading3.visibility = View.VISIBLE
                 Toast.makeText(requireContext(), "Loading Profile", Toast.LENGTH_LONG).show()
             } else if (Resource.isSuccess()) {
-//                binding.loading3.visibility = View.GONE
                 val profile = Resource.data
                 if (profile != null) {
                     binding.usernameText.text = profile.username
                     binding.emailText.text = profile.email
-                    binding.txtScore.text = profile.scores
                 } else if (Resource.isError()) {
-//                binding.loading3.visibility = View.GONE
-//                binding.imageView3.visibility = View.VISIBLE
-//                binding.isError.visibility = View.VISIBLE
                     Toast.makeText(requireContext(), "Failed to Load Feed " + " Pull to Refresh", Toast.LENGTH_LONG
                     ).show()
                 }
             }
         }
-        val sharePref = SharedPreferenceUtil(requireContext())
-        val userId = sharePref.retrieveData("userId").toString()
-        Log.d("RETRIEVED",userId)
+
+        scoreViewModel.saveResult.observe(this) { Resource ->
+            if (Resource.isLoading()) {
+                Toast.makeText(requireContext(), "Loading Scores", Toast.LENGTH_SHORT).show()
+            } else if (Resource.isSuccess()) {
+                val scores = Resource.data
+                if (scores != null) {
+                    val adapter = ScoreAdapter(scores.Score)
+                    binding.scoreList.adapter = adapter
+                    adapter.setScores(scores)
+                    adapter.notifyDataSetChanged()
+                } else if (Resource.isError()) {
+                    binding.swipe.setOnRefreshListener {
+                        scoreViewModel.getScore(userId)
+                    }
+                    Toast.makeText(requireContext(), "Failed to Load Scores \n Pull to Refresh", Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
 
         viewModel.getUser(userId)
         return root

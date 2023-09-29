@@ -164,5 +164,17 @@
         <action
             android:id="@+id/action_quizComplete_to_nav_mathTopics"
             app:destination="@id/nav_mathTopics" />
+        <action
+            android:id="@+id/action_quizComplete_to_setLevel2"
+            app:destination="@id/setLevel2" />
+    </fragment>
+    <fragment
+        android:id="@+id/setLevel2"
+        android:name="com.example.e_learn.ui.login.ui.mathquizzes.SetLevel2Fragment"
+        tools:layout="@layout/fragment_set_level2">
+        <action
+            android:id="@+id/action_setLevel2_to_quizComplete"
+            app:destination="@id/quizComplete"
+            />
     </fragment>
 </navigation>
